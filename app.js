@@ -1,18 +1,25 @@
 var express = require('express');
+var bodyParser = require('body-parser')
 var app = express();
 app.locals.pretty = true;
 app.set('view engine', 'jade');
 app.set('views', './views');//생략가능
 app.use(express.static('public'));
-/*app.get('/template', function(req, res){
+app.use(bodyParser.urlencoded({ extended: false }))
+app.get('/template', function(req, res){
 	res.render('temp', {time:Date(), _title:'Jade'});
-});*/
+});
 app.get('/form', function(req, res){
 	res.render('form');
 });
 app.get('/form_receiver', function(req, res){
 	var title = req.query.title;
 	var description = req.query.description;
+	res.send(title+','+description);
+});
+app.post('/form_receiver', function(req, res){
+	var title = req.body.title;
+	var description = req.body.description;
 	res.send(title+','+description);
 });
 app.get('/', function(req, res){
@@ -25,9 +32,9 @@ app.get('/topic/:id', function(req, res){
 		'express'
 	];
 	var output = `
-	<a href="/topic?id=0">javascript</a><br>
-	<a href="/topic?id=1">nodejs</a><br>
-	<a href="/topic?id=2">express</a><br><br>
+	<a href="/topic/0">javascript</a><br>
+	<a href="/topic/1">nodejs</a><br>
+	<a href="/topic/2">express</a><br><br>
 	${topics[req.params.id]}
 	`
 	res.send(output);
