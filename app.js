@@ -5,7 +5,7 @@ app.locals.pretty = true;
 app.set('view engine', 'jade');
 app.set('views', './views');//생략가능
 app.use(express.static('public'));
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: false }));
 app.get('/template', function(req, res){
 	res.render('temp', {time:Date(), _title:'Jade'});
 });
