@@ -10,7 +10,12 @@ html
         li
           a(href='/topic/'+topic.id)= topic.title
     artcle
-      h2= title
-      = description
+    if topic
+      h2= topic.title
+      = topic.description
+      div= 'by '+topic.author
+    else
+      h2 Welcome
+      | This is server side javascript tutorial.
     div
       a(href='/topic/new') new
